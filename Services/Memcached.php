@@ -157,4 +157,26 @@ class Memcached extends AbstractService
             return $this->service->version ?? 'unknown';
         }
     }
+
+    public function status(): string
+    {
+        try {
+            $result = $this->server->ssh()->exec('sudo systemctl is-active memcached');
+            return trim($result) === 'active' ? 'running' : 'stopped';
+        } catch (\Throwable $e) {
+            return 'stopped';
+        }
+    }
+
+    public function isInstalled(): bool
+    {
+        try {
+            $result = $this->server->ssh()->exec(
+                'dpkg -s memcached 2>/dev/null | grep -i ^status:'
+            );
+            return str_contains(strtolower($result), 'install ok installed');
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
 }
