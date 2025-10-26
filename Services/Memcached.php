@@ -42,7 +42,7 @@ class Memcached extends AbstractService
      */
     public function unit(): string
     {
-        return 'memcached.service';
+        return 'memcached';
     }
 
     /**
@@ -73,13 +73,13 @@ class Memcached extends AbstractService
      */
     public function install(): void
     {
-        $ssh = $this->service->server->ssh();
+
         // Update package index and install memcached and tools
-        $ssh->exec('sudo apt-get update -y');
-        $ssh->exec('sudo apt-get install -y memcached libmemcached-tools');
+        $this->service->server->ssh()->exec('sudo apt-get update -y');
+        $this->service->server->ssh()->exec('sudo apt-get install -y memcached libmemcached-tools');
         // Ensure the service is enabled and running
-        $ssh->exec('sudo systemctl enable memcached');
-        $ssh->exec('sudo systemctl restart memcached');
+        $this->service->server->ssh()->exec('sudo systemctl enable memcached');
+        $this->service->server->ssh()->exec('sudo systemctl restart memcached');
     }
 
     /**
@@ -88,16 +88,15 @@ class Memcached extends AbstractService
      */
     public function uninstall(): void
     {
-        $ssh = $this->service->server->ssh();
         if (! $this->isInstalled()) {
             return;
         }
 
         // Stop the service if running and remove packages
-        $ssh->exec('sudo systemctl stop memcached || true');
-        $ssh->exec('sudo apt-get remove -y memcached libmemcached-tools');
+        $this->service->server->ssh()->exec('sudo systemctl stop memcached || true');
+        $this->service->server->ssh()->exec('sudo apt-get remove -y memcached libmemcached-tools');
         // Remove orphaned dependencies
-        $ssh->exec('sudo apt-get autoremove -y');
+        $this->service->server->ssh()->exec('sudo apt-get autoremove -y');
     }
 
     /**
