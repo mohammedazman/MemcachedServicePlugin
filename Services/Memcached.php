@@ -36,6 +36,15 @@ class Memcached extends AbstractService
         return 'memory_database';
     }
 
+
+    /**
+     * Return the systemd unit name
+     */
+    public function unit(): string
+    {
+        return 'memcached.service';
+    }
+
     /**
      * Human‑readable name for display in the Vito UI.
      *
@@ -133,5 +142,19 @@ class Memcached extends AbstractService
     public function disable(): void
     {
         $this->service->server->ssh()->exec('sudo systemctl disable memcached');
+    }
+
+    public function version(): string
+    {
+
+        try {
+            $output = $this->service->server->ssh()->exec('memcached -h | head -n 1');
+            if (empty($output)) {
+                return  $this->service->version ?? 'unknown';
+            }
+            return trim(str_replace('memcached', '', $output));
+        } catch (\Throwable $e) {
+            return $this->service->version ?? 'unknown';
+        }
     }
 }
