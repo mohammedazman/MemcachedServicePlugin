@@ -124,31 +124,4 @@ class Plugin extends AbstractPlugin
         });
     }
 
-    /**
-     * Hook called when installing the plugin. Override if needed.
-     */
-    public function install(): void
-    {
-    }
-
-    /**
-     * Hook called when uninstalling the plugin. Override if needed.
-     */
-    public function uninstall(): void
-    {
-    }
-
-    /**
-     * Hook called when enabling the plugin. Override if needed.
-     */
-    public function enable(): void
-    {
-    }
-
-    /**
-     * Hook called when disabling the plugin. Override if needed.
-     */
-    public function disable(): void
-    {
-    }
 }

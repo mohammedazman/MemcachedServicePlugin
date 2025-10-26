@@ -61,79 +61,77 @@ class Memcached extends AbstractService
      * Install Memcached on the server. This method is executed when the user
      * clicks the Install button in the Services UI.
      *
-     * @param Server $server
      */
-    public function install(Server $server): void
+    public function install(): void
     {
+        $ssh = $this->service->server->ssh();
         // Update package index and install memcached and tools
-        $server->run('sudo apt-get update -y');
-        $server->run('sudo apt-get install -y memcached libmemcached-tools');
+        $ssh->exec('sudo apt-get update -y');
+        $ssh->exec('sudo apt-get install -y memcached libmemcached-tools');
         // Ensure the service is enabled and running
-        $server->run('sudo systemctl enable memcached');
-        $server->run('sudo systemctl restart memcached');
+        $ssh->exec('sudo systemctl enable memcached');
+        $ssh->exec('sudo systemctl restart memcached');
     }
 
     /**
      * Uninstall Memcached from the server.
      *
-     * @param Server $server
      */
-    public function uninstall(Server $server): void
+    public function uninstall(): void
     {
+        $ssh = $this->service->server->ssh();
+        if (! $this->isInstalled()) {
+            return;
+        }
+
         // Stop the service if running and remove packages
-        $server->run('sudo systemctl stop memcached || true');
-        $server->run('sudo apt-get remove -y memcached libmemcached-tools');
+        $ssh->exec('sudo systemctl stop memcached || true');
+        $ssh->exec('sudo apt-get remove -y memcached libmemcached-tools');
         // Remove orphaned dependencies
-        $server->run('sudo apt-get autoremove -y');
+        $ssh->exec('sudo apt-get autoremove -y');
     }
 
     /**
      * Start the service.
-     *
-     * @param Server $server
      */
-    public function start(Server $server): void
+    public function start(): void
     {
-        $server->run('sudo systemctl start memcached');
+        $this->service->server->ssh()->exec('sudo systemctl start memcached');
     }
 
     /**
      * Stop the service.
      *
-     * @param Server $server
      */
-    public function stop(Server $server): void
+    public function stop(): void
     {
-        $server->run('sudo systemctl stop memcached');
+        $this->service->server->ssh()->exec('sudo systemctl stop memcached');
     }
 
     /**
      * Restart the service.
      *
-     * @param Server $server
      */
-    public function restart(Server $server): void
+    public function restart(): void
     {
-        $server->run('sudo systemctl restart memcached');
+        $this->service->server->ssh()->exec('sudo systemctl restart memcached');
     }
 
     /**
      * Enable the service to start on boot.
      *
-     * @param Server $server
      */
-    public function enable(Server $server): void
+    public function enable(): void
     {
-        $server->run('sudo systemctl enable memcached');
+        $this->service->server->ssh()->exec('sudo systemctl enable memcached');
     }
 
     /**
      * Disable the service from starting on boot.
      *
-     * @param Server $server
      */
-    public function disable(Server $server): void
+    public function disable(): void
     {
-        $server->run('sudo systemctl disable memcached');
+        $this->service->server->ssh()->exec('sudo systemctl disable memcached');
     }
 }
