@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin\Services;
+namespace App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin\Services;
 
 use App\Models\Server;
 use App\Services\AbstractService;

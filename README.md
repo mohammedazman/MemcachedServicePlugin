@@ -17,11 +17,11 @@ server feature and an action to tune Memcached settings via the UI.
 Place the plugin under:
 
 ```
-app/Vito/Plugins/MohammedAzman/MemcachedServicePlugin
+app/Vito/Plugins/Mohammedazman/MemcachedServicePlugin
 ```
 
 Make sure the namespace in `Plugin.php`, service and action classes matches
-the directory structure (e.g. `App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin`).
+the directory structure (e.g. `App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin`).
 Then navigate to **Settings → Plugins → Discover** in the Vito UI and install
 and enable the plugin.
 

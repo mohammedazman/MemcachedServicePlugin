@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin\Actions;
+namespace App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin\Actions;
 
 use App\Models\Server;
 use App\ServerFeatures\Action;

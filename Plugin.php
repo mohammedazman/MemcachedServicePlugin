@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin;
+namespace App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin;
 
 use App\Plugins\AbstractPlugin;
 use App\Plugins\RegisterServiceType;
@@ -12,8 +12,8 @@ use App\DTOs\DynamicField;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use App\Models\Service;
-use App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin\Services\Memcached;
-use App\Vito\Plugins\MohammedAzman\MemcachedServicePlugin\Actions\Tune;
+use App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin\Services\Memcached;
+use App\Vito\Plugins\Mohammedazman\MemcachedServicePlugin\Actions\Tune;
 
 /**
  * Plugin bootstrap class for the Memcached service.
