@@ -25,16 +25,3 @@ the directory structure (e.g. `App\Vito\Plugins\Mohammedazman\MemcachedServicePl
 Then navigate to **Settings → Plugins → Discover** in the Vito UI and install
 and enable the plugin.
 
-## Publishing
-
-Create a public GitHub repository named `MemcachedServicePlugin` and add the
-topic `vitodeploy-plugin` so that Vito can discover it automatically.
-
-## Compatibility
-
-Tested against **VitoDeploy 3.x**. This plugin registers a new `memory_database`
-service type and uses server features/actions according to the documentation
-available.
-
-Refer to the official plugin guide for more details on extending Vito:
-<https://vitodeploy.com/docs/plugins/>.
